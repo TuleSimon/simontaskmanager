@@ -22,4 +22,13 @@ class TodoListDTO extends TodoListEntity {
     );
   }
 
+   Map<String, dynamic> toJson() {
+    return {
+      'todos': todos.map(( e)=> (e as TodoDTO).toJson()),
+      'total':total,
+      'skip':skip,
+      'limit':limit
+    };
+  }
+
 }
