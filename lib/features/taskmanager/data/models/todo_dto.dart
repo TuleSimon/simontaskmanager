@@ -1,16 +1,11 @@
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todo_entity.dart';
 
-class TodoDTO {
-  final int id;
-  final String todo;
-  final bool completed;
-  final int userId;
-
-  TodoDTO({
-    required this.id,
-    required this.todo,
-    required this.completed,
-    required this.userId,
+class TodoDTO extends TodoEntity {
+  const TodoDTO({
+    required super.id,
+    required super.todo,
+    required super.completed,
+    required super.userId,
   });
 
   factory TodoDTO.fromJson(Map<String, dynamic> json) {
@@ -29,14 +24,5 @@ class TodoDTO {
       'completed': completed,
       'userId': userId,
     };
-  }
-
-  TodoEntity toEntity() {
-    return TodoEntity(
-      id: id,
-      todo: todo,
-      completed: completed,
-      userId: userId,
-    );
   }
 }

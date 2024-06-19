@@ -18,5 +18,5 @@ abstract class TodoRepository{
   /// if requests fails, left returns a [Failures]
   /// if requests success, right returns a [TodoEntity]
   ///
-  Future<Either<Failures, TodoEntity>> addTodos({required String todo,required bool isCompleted});
+  Future<Either<Failures, TodoEntity>> addTodos({required String todo, required int userid, required bool isCompleted});
 }

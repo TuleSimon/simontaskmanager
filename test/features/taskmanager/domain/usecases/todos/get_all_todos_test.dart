@@ -5,11 +5,12 @@ import 'package:mockito/mockito.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todo_entity.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todolist_entity.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/repositories/todoRepository.dart';
-import 'package:simontaskmanager/features/taskmanager/domain/usecases/get_all_todos_usecase.dart';
+import 'package:simontaskmanager/features/taskmanager/domain/usecases/todos/get_all_todos_usecase.dart';
+
+import 'get_all_todos_test.mocks.dart';
 
 // Annotation which generates the cat.mocks.dart library and the MockCat class.
 @GenerateNiceMocks([MockSpec<TodoRepository>()])
-import 'get_all_todos_test.mocks.dart';
 
 void main() {
   late GetAllTodosUseCase usecase;
@@ -43,7 +44,7 @@ void main() {
         .thenAnswer((_) async => Right(tTodoListEntity));
 
     // Act
-    final result = await usecase.execute(limit: limit, offset: skip);
+    final result = await usecase(params:GetAllTodosParams(limit: limit, offset: skip));
 
     // Assert
     expect(result, Right(tTodoListEntity));
