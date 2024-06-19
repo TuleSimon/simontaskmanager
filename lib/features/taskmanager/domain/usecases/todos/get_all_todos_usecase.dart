@@ -25,7 +25,7 @@ class GetAllTodosUseCase implements Usecase<TodoListEntity,GetAllTodosParams>{
 
 
   @override
-  Future<Either<Failures, TodoListEntity>> call({required GetAllTodosParams params}) async {
+  Future<Either<Failure, TodoListEntity>> call({required GetAllTodosParams params}) async {
     return await todosRepository.getAllTodos(limit: params.limit, offset: params.offset);
   }
 }

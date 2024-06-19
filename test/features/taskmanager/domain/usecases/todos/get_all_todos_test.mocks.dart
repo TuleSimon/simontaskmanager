@@ -43,7 +43,7 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
   @override
-  _i4.Future<_i2.Either<_i5.Failures, _i6.TodoListEntity>> getAllTodos({
+  _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>> getAllTodos({
     required int? limit,
     required int? offset,
   }) =>
@@ -57,8 +57,8 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
           },
         ),
         returnValue:
-            _i4.Future<_i2.Either<_i5.Failures, _i6.TodoListEntity>>.value(
-                _FakeEither_0<_i5.Failures, _i6.TodoListEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.TodoListEntity>(
           this,
           Invocation.method(
             #getAllTodos,
@@ -70,8 +70,8 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failures, _i6.TodoListEntity>>.value(
-                _FakeEither_0<_i5.Failures, _i6.TodoListEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.TodoListEntity>(
           this,
           Invocation.method(
             #getAllTodos,
@@ -82,10 +82,10 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failures, _i6.TodoListEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failures, _i7.TodoEntity>> addTodos({
+  _i4.Future<_i2.Either<_i5.Failure, _i7.TodoEntity>> addTodos({
     required String? todo,
     required int? userid,
     required bool? isCompleted,
@@ -100,8 +100,8 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
             #isCompleted: isCompleted,
           },
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failures, _i7.TodoEntity>>.value(
-            _FakeEither_0<_i5.Failures, _i7.TodoEntity>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i7.TodoEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i7.TodoEntity>(
           this,
           Invocation.method(
             #addTodos,
@@ -114,8 +114,8 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failures, _i7.TodoEntity>>.value(
-                _FakeEither_0<_i5.Failures, _i7.TodoEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i7.TodoEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i7.TodoEntity>(
           this,
           Invocation.method(
             #addTodos,
@@ -127,5 +127,5 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failures, _i7.TodoEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.TodoEntity>>);
 }

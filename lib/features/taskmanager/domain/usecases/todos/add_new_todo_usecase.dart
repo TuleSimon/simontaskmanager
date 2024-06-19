@@ -27,7 +27,7 @@ class AddNewTodoUsecase implements Usecase<TodoEntity,AddNewTodoParams>{
 
 
   @override
-  Future<Either<Failures, TodoEntity>> call({required AddNewTodoParams params}) async {
+  Future<Either<Failure, TodoEntity>> call({required AddNewTodoParams params}) async {
     return await todosRepository.addTodos(todo: params.todo, userid: params.userid, isCompleted: params.isCompleted);
   }
 }

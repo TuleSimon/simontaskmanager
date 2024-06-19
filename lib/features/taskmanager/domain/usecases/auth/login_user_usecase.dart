@@ -25,7 +25,7 @@ class LoginUserUseCase implements Usecase<UserEntity, LoginUserParams> {
   LoginUserUseCase({required this.authRepository});
 
   @override
-  Future<Either<Failures, UserEntity>> call(
+  Future<Either<Failure, UserEntity>> call(
       {required LoginUserParams params}) async {
     return await authRepository.login(
         username: params.userName,

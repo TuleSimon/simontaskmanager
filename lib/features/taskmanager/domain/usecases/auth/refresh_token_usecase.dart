@@ -22,7 +22,7 @@ class RefreshTokenUsecase implements Usecase<TokenEntity, RefreshTokenParams> {
   RefreshTokenUsecase({required this.authRepository});
 
   @override
-  Future<Either<Failures, TokenEntity>> call(
+  Future<Either<Failure, TokenEntity>> call(
       {required RefreshTokenParams params}) async {
     return await authRepository.refreshAuthToken(
         refreshToken: params.refreshToken, expiresInMin: params.expiresInMin);

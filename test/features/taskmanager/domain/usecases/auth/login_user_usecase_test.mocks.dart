@@ -43,7 +43,7 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
   @override
-  _i4.Future<_i2.Either<_i5.Failures, _i6.UserEntity>> login({
+  _i4.Future<_i2.Either<_i5.Failure, _i6.UserEntity>> login({
     required String? username,
     required String? password,
     required int? expiresInMin,
@@ -58,8 +58,8 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
             #expiresInMin: expiresInMin,
           },
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failures, _i6.UserEntity>>.value(
-            _FakeEither_0<_i5.Failures, _i6.UserEntity>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.UserEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i6.UserEntity>(
           this,
           Invocation.method(
             #login,
@@ -72,8 +72,8 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failures, _i6.UserEntity>>.value(
-                _FakeEither_0<_i5.Failures, _i6.UserEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.UserEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.UserEntity>(
           this,
           Invocation.method(
             #login,
@@ -85,10 +85,10 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failures, _i6.UserEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.UserEntity>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failures, _i7.TokenEntity>> refreshAuthToken({
+  _i4.Future<_i2.Either<_i5.Failure, _i7.TokenEntity>> refreshAuthToken({
     required String? refreshToken,
     required int? expiresInMin,
   }) =>
@@ -101,9 +101,8 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
             #expiresInMin: expiresInMin,
           },
         ),
-        returnValue:
-            _i4.Future<_i2.Either<_i5.Failures, _i7.TokenEntity>>.value(
-                _FakeEither_0<_i5.Failures, _i7.TokenEntity>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i7.TokenEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i7.TokenEntity>(
           this,
           Invocation.method(
             #refreshAuthToken,
@@ -115,8 +114,8 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failures, _i7.TokenEntity>>.value(
-                _FakeEither_0<_i5.Failures, _i7.TokenEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i7.TokenEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i7.TokenEntity>(
           this,
           Invocation.method(
             #refreshAuthToken,
@@ -127,5 +126,5 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failures, _i7.TokenEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.TokenEntity>>);
 }
