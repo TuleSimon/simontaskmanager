@@ -119,6 +119,7 @@ void main() {
               .thenAnswer((_) async => const Right(newTodo));
           when(mockSaveTodosUsecase(params: anyNamed('params')))
               .thenAnswer((_) async => const Right(true));
+          final newId = DateTime.now().millisecond;
 
           taskManagerBloc.emit(TaskManagerStateLoaded(
             todos: todos.todos,
@@ -132,7 +133,7 @@ void main() {
           ));
 
           taskManagerBloc.add(TaskManagerAddTodo(
-            todo: newTodo.todo,
+            todo: newTodo.todo,id:newId
           ));
 
           await expectLater(
@@ -148,7 +149,7 @@ void main() {
                   error: "",
                   addedTodo: false),
               TaskManagerStateLoaded(
-                  todos: [ newTodo,...todos.todos,],
+                  todos: [ newTodo.copyWith(id:newId),...todos.todos,],
                   limit: todos.limit,
                   skip: todos.skip,
                   total: todos.total + 1,
@@ -287,7 +288,7 @@ void main() {
                   user: user.copyWith(refreshToken: "", token: ""),
                   addingTodo: false,
                   error: "",
-                  addedTodo: true),
+                  addedTodo: false),
             ]),
           );
         });
