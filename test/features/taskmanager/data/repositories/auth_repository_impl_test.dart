@@ -11,13 +11,16 @@ import 'todo_repository_impl_test.mocks.dart';
 
 void main() {
   late MockTaskManagerDatasource mockDataSource;
+  late MockTaskManagerLocalDatasource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
   late AuthRepositoryImpl authRepositoryImpl;
 
   setUp(() {
     mockDataSource = MockTaskManagerDatasource();
     mockNetworkInfo = MockNetworkInfo();
+    mockLocalDataSource = MockTaskManagerLocalDatasource();
     authRepositoryImpl = AuthRepositoryImpl(
+      localDatasource: mockLocalDataSource,
       datasource: mockDataSource,
       networkInfo: mockNetworkInfo,
     );
@@ -42,6 +45,30 @@ void main() {
       refreshToken:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJtaWNoYWVsdyIsImVtYWlsIjoibWljaGFlbC53aWxsaWFtc0B4LmR1bW15anNvbi5jb20iLCJmaXJzdE5hbWUiOiJNaWNoYWVsIiwibGFzdE5hbWUiOiJXaWxsaWFtcyIsImdlbmRlciI6Im1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL21pY2hhZWx3LzEyOCIsImlhdCI6MTcxNzYxMzQ0OSwiZXhwIjoxNzIwMjA1NDQ5fQ.G9zS9jdoWLjHwEr9sQM6nPaQPi0PJSCMt9oO8xTAdAY");
 
+  test('should  logoout', () {
+    when(mockLocalDataSource.clearCache())
+        .thenAnswer((_) async => true);
+    authRepositoryImpl.logOut();
+    verify(mockLocalDataSource.clearCache()).called(1);
+  });
+
+  test('should  get current user if data is avaialble', () async{
+    when(mockLocalDataSource.getLoggedInUser())
+        .thenAnswer((_) async => tUserDto);
+    final user = await authRepositoryImpl.getLoggedInUser();
+    verify(mockLocalDataSource.getLoggedInUser()).called(1);
+    expect(user, const Right(tUserDto));
+  });
+
+  test('should  throw error when  user if data is not avaialble', () async{
+    when(mockLocalDataSource.getLoggedInUser())
+        .thenAnswer((_) async => null);
+    final user = await authRepositoryImpl.getLoggedInUser();
+    verify(mockLocalDataSource.getLoggedInUser()).called(1);
+    expect(user,  Left(LocalCacheFailure()));
+  });
+
+
   group('loginUser', () {
     test('should check if device is online', () {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -59,6 +86,8 @@ void main() {
         when(mockDataSource.login(
                 username: tUserDto.username, password: "123", expiresInMin: 3))
             .thenAnswer((_) async => tUserDto);
+        when(mockLocalDataSource.saveUserData(user: tUserDto))
+            .thenAnswer((_) async => true);
       });
 
       test('should return correct user data if device online', () async {
@@ -69,11 +98,24 @@ void main() {
             .called(1);
         expect(result, const Right(tUserDto));
       });
+
+      test(
+          'should then cache user data if correct user data is returned when device online',
+          () async {
+        final result = await authRepositoryImpl.login(
+            username: tUserDto.username, password: "123", expiresInMin: 3);
+        verify(mockDataSource.login(
+                username: tUserDto.username, password: "123", expiresInMin: 3))
+            .called(1);
+        verify(mockLocalDataSource.saveUserData(user: tUserDto));
+        expect(result, const Right(tUserDto));
+      });
+
       test('should return server failure if device online and error occur',
           () async {
         when(mockDataSource.login(
                 username: tUserDto.username, password: "123", expiresInMin: 3))
-            .thenThrow(ServerException());
+            .thenThrow(ServerException(message: ''));
         final result = await authRepositoryImpl.login(
             username: tUserDto.username, password: "123", expiresInMin: 3);
         expect(result, Left(ServerFailure()));
@@ -125,7 +167,7 @@ void main() {
           () async {
         when(mockDataSource.refreshAuthToken(
                 refreshToken: tUserDto.refreshToken, expiresInMin: 3))
-            .thenThrow(ServerException());
+            .thenThrow(ServerException(message: ''));
         final result = await authRepositoryImpl.refreshAuthToken(
             refreshToken: tUserDto.refreshToken, expiresInMin: 3);
         expect(result, Left(ServerFailure()));

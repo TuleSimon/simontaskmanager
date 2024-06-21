@@ -6,7 +6,7 @@
 import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:simontaskmanager/features/core/platform/network_info.dart'
+import 'package:simontaskmanager/features/core/network/network_info.dart'
     as _i9;
 import 'package:simontaskmanager/features/taskmanager/data/datasources/local/task_manager_localdatasource.dart'
     as _i8;
@@ -271,6 +271,16 @@ class MockTaskManagerLocalDatasource extends _i1.Mock
       ) as _i7.Future<_i2.TodoListDTO>);
 
   @override
+  _i7.Future<bool> clearCache() => (super.noSuchMethod(
+        Invocation.method(
+          #clearCache,
+          [],
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
   _i7.Future<bool> cacheTodos({required _i2.TodoListDTO? todos}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -281,6 +291,28 @@ class MockTaskManagerLocalDatasource extends _i1.Mock
         returnValue: _i7.Future<bool>.value(false),
         returnValueForMissingStub: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<bool> saveUserData({required _i4.UserDTO? user}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveUserData,
+          [],
+          {#user: user},
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<_i4.UserDTO?> getLoggedInUser() => (super.noSuchMethod(
+        Invocation.method(
+          #getLoggedInUser,
+          [],
+        ),
+        returnValue: _i7.Future<_i4.UserDTO?>.value(),
+        returnValueForMissingStub: _i7.Future<_i4.UserDTO?>.value(),
+      ) as _i7.Future<_i4.UserDTO?>);
 }
 
 /// A class which mocks [NetworkInfo].

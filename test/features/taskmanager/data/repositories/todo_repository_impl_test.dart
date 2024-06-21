@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:simontaskmanager/features/core/error/exceptions.dart';
 import 'package:simontaskmanager/features/core/error/failures.dart';
-import 'package:simontaskmanager/features/core/platform/network_info.dart';
+import 'package:simontaskmanager/features/core/network/network_info.dart';
 import 'package:simontaskmanager/features/taskmanager/data/datasources/local/task_manager_localdatasource.dart';
 import 'package:simontaskmanager/features/taskmanager/data/datasources/remote/task_manager_datasource.dart';
 import 'package:simontaskmanager/features/taskmanager/data/models/todo_dto.dart';
@@ -45,10 +45,10 @@ void main() {
       userId: 26);
 
   const tToDoListDTO =
-      TodoListDTO(todos: [tTodo], total: 10, skip: 0, limit: 30);
+      TodoListDTO(innerTodos: [tTodo], total: 10, skip: 0, limit: 30);
 
   const tToDoListDTOEmpty =
-      TodoListDTO(todos: [], total: 10, skip: 0, limit: 30);
+      TodoListDTO(innerTodos: [], total: 10, skip: 0, limit: 30);
 
   group('getAllTodos', () {
     test('should check if device is online', () {
@@ -109,7 +109,7 @@ void main() {
       when(mockLocalDataSource.getCacheAllTodos())
           .thenAnswer((_) async => tToDoListDTOEmpty);
       when(mockDataSource.getAllTodos(limit: tLimit, offset: tOffset))
-          .thenThrow(ServerException());
+          .thenThrow(ServerException(message: ''));
       final result =
           await todoRepositoryImpl.getAllTodos(limit: tLimit, offset: tOffset);
       verify(mockDataSource.getAllTodos(limit: tLimit, offset: tOffset))
@@ -146,7 +146,7 @@ void main() {
         todo: tTodo.todo,
         userid: tTodo.userId,
         isCompleted: tTodo.completed,
-      )).thenThrow(ServerException());
+      )).thenThrow(ServerException(message: ''));
       final result = await todoRepositoryImpl.addTodos(
         todo: tTodo.todo,
         userid: tTodo.userId,

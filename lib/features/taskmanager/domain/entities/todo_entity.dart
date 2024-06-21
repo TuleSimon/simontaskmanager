@@ -1,6 +1,7 @@
 
 
 import 'package:equatable/equatable.dart';
+import 'package:simontaskmanager/features/taskmanager/data/models/todo_dto.dart';
 
 class TodoEntity extends Equatable {
   final int id;
@@ -35,5 +36,14 @@ class TodoEntity extends Equatable {
   @override
   String toString() {
     return 'TodoEntity{id: $id, todo: $todo, completed: $completed, userId: $userId}';
+  }
+
+  TodoDTO toDTO() {
+    return TodoDTO(
+      id: id,
+      todo: todo,
+      completed: completed,
+      userId: userId,
+    );
   }
 }

@@ -7,7 +7,7 @@ import 'package:simontaskmanager/features/taskmanager/domain/entities/todolist_e
 import '../../../../jsons/JsonReader.dart';
 
 void main() {
-  const tToDoListDTO = TodoListDTO(todos: [
+  const tToDoListDTO = TodoListDTO(innerTodos: [
     TodoDTO(
         id: 1,
         todo: "Do something nice for someone I care about",

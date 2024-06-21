@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:simontaskmanager/features/core/error/exceptions.dart';
 import 'package:simontaskmanager/features/core/error/failures.dart';
-import 'package:simontaskmanager/features/core/platform/network_info.dart';
+import 'package:simontaskmanager/features/core/network/network_info.dart';
 import 'package:simontaskmanager/features/taskmanager/data/datasources/local/task_manager_localdatasource.dart';
 import 'package:simontaskmanager/features/taskmanager/data/datasources/remote/task_manager_datasource.dart';
+import 'package:simontaskmanager/features/taskmanager/data/models/todolist_dto.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todo_entity.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todolist_entity.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/repositories/todoRepository.dart';
@@ -34,6 +35,8 @@ class TodoRepositoryImpl extends TodoRepository {
         }
       } on ServerException {
         return Left(ServerFailure());
+      } on NetworkException {
+        return Left(NetworkFailure());
       }
     } else {
       final cacheTodos = await localDatasource.getCacheAllTodos();
@@ -51,13 +54,40 @@ class TodoRepositoryImpl extends TodoRepository {
       required bool isCompleted}) async {
     if (await networkInfo.isConnected) {
       try {
-        final response = await datasource.addTodos(todo: todo, userid: userid, isCompleted: isCompleted) ;
-          return Right(response);
+        final response = await datasource.addTodos(
+            todo: todo, userid: userid, isCompleted: isCompleted);
+        return Right(response);
       } on ServerException {
         return Left(ServerFailure());
+      } on NetworkException {
+        return Left(NetworkFailure());
       }
     } else {
-     return Left(NetworkFailure());
+      return Left(NetworkFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> saveTodos({required TodoListDTO todos}) async {
+    await localDatasource.cacheTodos(todos: todos);
+    return Future.value(const Right(true));
+  }
+
+  @override
+  Future<Either<Failure, TodoListEntity>> getMoreTodos(
+      {required int limit, required int offset}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response =
+            await datasource.getAllTodos(limit: limit, offset: offset);
+        return Right(response);
+      } on ServerException {
+        return Left(ServerFailure());
+      } on NetworkException {
+        return Left(NetworkFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
     }
   }
 }

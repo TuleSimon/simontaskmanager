@@ -3,17 +3,19 @@ import 'package:simontaskmanager/features/taskmanager/domain/entities/todolist_e
 import 'todo_dto.dart';
 
 class TodoListDTO extends TodoListEntity {
+  @override
+  final List<TodoDTO> innerTodos;
 
   const TodoListDTO({
-    required super.todos,
+    required this.innerTodos,
     required super.total,
     required super.skip,
     required super.limit,
-  }) ;
+  }) : super(todos: innerTodos);
 
   factory TodoListDTO.fromJson(Map<String, dynamic> json) {
     return TodoListDTO(
-      todos: (json['todos'] as List)
+      innerTodos: (json['todos'] as List)
           .map((item) => TodoDTO.fromJson(item))
           .toList(),
       total: json['total'],
@@ -22,13 +24,12 @@ class TodoListDTO extends TodoListEntity {
     );
   }
 
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
-      'todos': todos.map(( e)=> (e as TodoDTO).toJson()),
-      'total':total,
-      'skip':skip,
-      'limit':limit
+      'todos': innerTodos.map((e) => (e).toJson()).toList(),
+      'total': total,
+      'skip': skip,
+      'limit': limit
     };
   }
-
 }

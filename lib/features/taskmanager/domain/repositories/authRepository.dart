@@ -12,6 +12,22 @@ abstract class AuthRepository {
   ///
   Future<Either<Failure, UserEntity>> login({required String username, required String password, required int expiresInMin});
 
+
+  ///
+  /// This function is used to get logged in user
+  /// it returns a future with an `Either` which left is a failure,
+  /// and right is [UserEntity]
+  Future<Either<Failure, UserEntity>> getLoggedInUser();
+
+
+  ///
+  /// This function is used to logout logged in user
+  /// it returns a future with an `Either` which left is a failure,
+  /// and right is bool
+  Future<Either<Failure, bool>> logOut();
+
+
+
   ///
   /// This functions is used to refresh an existing session after it expires,
   /// it returns a future with an `Either` which left is a failure,

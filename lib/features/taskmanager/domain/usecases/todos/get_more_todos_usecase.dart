@@ -4,29 +4,18 @@ import 'package:simontaskmanager/features/core/error/failures.dart';
 import 'package:simontaskmanager/features/core/usecases/usecase.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todolist_entity.dart';
 import 'package:simontaskmanager/features/taskmanager/domain/repositories/todoRepository.dart';
+import 'package:simontaskmanager/features/taskmanager/domain/usecases/todos/get_all_todos_usecase.dart';
 
-class GetAllTodosParams extends Equatable {
-  final int limit;
-  final int offset;
-
-  const GetAllTodosParams({
-    required this.limit,
-    required this.offset,
-  });
-
-  @override
-  List<Object?> get props => [limit, offset];
-}
-
-class GetAllTodosUseCase implements Usecase<TodoListEntity, GetAllTodosParams> {
+class GetMoreTodosUsecase
+    implements Usecase<TodoListEntity, GetAllTodosParams> {
   final TodoRepository todosRepository;
 
-  GetAllTodosUseCase({required this.todosRepository});
+  GetMoreTodosUsecase({required this.todosRepository});
 
   @override
   Future<Either<Failure, TodoListEntity>> call(
       {required GetAllTodosParams params}) async {
-    return await todosRepository.getAllTodos(
+    return await todosRepository.getMoreTodos(
         limit: params.limit, offset: params.offset);
   }
 }

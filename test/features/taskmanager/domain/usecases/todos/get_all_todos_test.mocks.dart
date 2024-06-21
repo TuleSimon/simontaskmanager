@@ -8,6 +8,8 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:simontaskmanager/features/core/error/failures.dart' as _i5;
+import 'package:simontaskmanager/features/taskmanager/data/models/todolist_dto.dart'
+    as _i8;
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todo_entity.dart'
     as _i7;
 import 'package:simontaskmanager/features/taskmanager/domain/entities/todolist_entity.dart'
@@ -85,6 +87,48 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>>);
 
   @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>> getMoreTodos({
+    required int? limit,
+    required int? offset,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMoreTodos,
+          [],
+          {
+            #limit: limit,
+            #offset: offset,
+          },
+        ),
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.TodoListEntity>(
+          this,
+          Invocation.method(
+            #getMoreTodos,
+            [],
+            {
+              #limit: limit,
+              #offset: offset,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.TodoListEntity>(
+          this,
+          Invocation.method(
+            #getMoreTodos,
+            [],
+            {
+              #limit: limit,
+              #offset: offset,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.TodoListEntity>>);
+
+  @override
   _i4.Future<_i2.Either<_i5.Failure, _i7.TodoEntity>> addTodos({
     required String? todo,
     required int? userid,
@@ -128,4 +172,34 @@ class MockTodoRepository extends _i1.Mock implements _i3.TodoRepository {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i7.TodoEntity>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, bool>> saveTodos(
+          {required _i8.TodoListDTO? todos}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveTodos,
+          [],
+          {#todos: todos},
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+            _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #saveTodos,
+            [],
+            {#todos: todos},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+                _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #saveTodos,
+            [],
+            {#todos: todos},
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
 }
