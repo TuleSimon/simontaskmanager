@@ -16,8 +16,9 @@ class TaskManagerInitial extends TaskManagerEvent {
 
 class TaskManagerAddTodo extends TaskManagerEvent {
   final String todo;
+  final int? id;
 
-  const TaskManagerAddTodo({required this.todo});
+  const TaskManagerAddTodo({required this.todo,this.id});
 
   @override
   List<Object?> get props => [todo];

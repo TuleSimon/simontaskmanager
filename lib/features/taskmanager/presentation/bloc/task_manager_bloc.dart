@@ -103,7 +103,8 @@ class TaskManagerBloc extends Bloc<TaskManagerEvent, TaskManagerState> {
               (left is NetworkFailure) ? NETWORK_ERROR : SOMETHING_WENT_WRONG)),
           (result) async {
         final updatedTodos = List<TodoEntity>.from(currentState.todos)
-          ..insert(0, result.copyWith(id: DateTime.now().millisecond));
+          ..insert(
+              0, result.copyWith(id: event.id ?? DateTime.now().millisecond));
         final updatedState = currentState.copyWith(
             todos: updatedTodos,
             total: currentState.total + 1,
